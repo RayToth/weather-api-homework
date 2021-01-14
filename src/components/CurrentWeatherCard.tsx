@@ -15,6 +15,7 @@ const StyledCard = styled.div`
   border-radius: 10px;
   border: solid;
   margin: 30px auto 0 auto;
+  padding: 20px;
 `;
 
 const CurrentWeatherCard: React.FC<Props> = ({
@@ -26,6 +27,10 @@ const CurrentWeatherCard: React.FC<Props> = ({
 }) => (
   <StyledCard>
     <p>WeatherCard</p>
+    <form>
+      <input type="text" id="city-search-bar" placeholder="City" />
+      <input type="submit" value="Search" />
+    </form>
   </StyledCard>
 );
 export default CurrentWeatherCard;
