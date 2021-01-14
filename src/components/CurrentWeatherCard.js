@@ -33,12 +33,17 @@ function CurrentWeatherCard() {
         const weatherData = allData.weather[0];
         const temperatureData = allData.main;
 
+        setErrorMessage(null);
         setWeather(weatherData.main);
         setIcon(`http://openweathermap.org/img/wn/${weatherData.icon}@2x.png`);
         setTemperature(Math.round(temperatureData.temp - KELVIN));
         setFeelsLike(Math.round(temperatureData.feels_like - KELVIN));
       } else {
         setErrorMessage("Please enter a valid city.");
+        setWeather(null);
+        setIcon(null);
+        setTemperature(null);
+        setFeelsLike(null);
       }
     });
   };
