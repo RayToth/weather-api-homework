@@ -18,23 +18,24 @@ function CurrentWeatherCard() {
   const [temperature, setTemperature] = useState("");
   const [feelsLike, setFeelsLike] = useState("");
 
-  const fetchIcon = (icon) => {};
+  const KELVIN = 272.15;
 
   const handleChange = (e) => {
     setCity(e.target.value);
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
     fetchWeatherData(city).then((response) => {
       const allData = response.data;
       const weatherData = allData.weather[0];
       const temperatureData = allData.main;
 
       setWeather(weatherData.main);
-      setIcon(weatherData.icon);
-      setTemperature(temperatureData.temp);
-      setFeelsLike(temperatureData.feels_like);
-      console.log(weather, icon, temperature, feelsLike);
+      setIcon(`http://openweathermap.org/img/wn/${weatherData.icon}@2x.png`);
+      setTemperature(Math.round(temperatureData.temp - KELVIN));
+      setFeelsLike(Math.round(temperatureData.feels_like - KELVIN));
     });
   };
 
@@ -42,10 +43,10 @@ function CurrentWeatherCard() {
     <StyledCard>
       {temperature && (
         <div>
-          <div>Temperature: {temperature}</div>
-          <div>Feels like: {feelsLike}</div>
+          <div>Temperature: {temperature} ℃</div>
+          <div>Feels like: {feelsLike} ℃</div>
           <div>Weather: {weather}</div>
-          <div>{icon}</div>
+          <img src={icon} alt="weatherIcon" />
         </div>
       )}
       <form onSubmit={handleSubmit}>
