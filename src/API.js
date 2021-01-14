@@ -13,3 +13,7 @@ export const fetchWeatherData = async (city) => {
     )
     .catch((error) => console.error(`Error: ${error}`));
 };
+
+export const fetchIcon = async (icon) => {
+  return await axios.get();
+};

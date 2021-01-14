@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { fetchWeatherData } from "../API";
 
@@ -11,14 +11,6 @@ const StyledCard = styled.div`
   padding: 20px;
 `;
 
-/*const getValue = (e) => {
-  setCity(e.target.value);
-};
-
-function getInput() {
-  fetchWeatherData().then((data) => console.log(data));
-}*/
-
 function CurrentWeatherCard() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState("");
@@ -26,28 +18,36 @@ function CurrentWeatherCard() {
   const [temperature, setTemperature] = useState("");
   const [feelsLike, setFeelsLike] = useState("");
 
-  function fetchData(city) {
-    fetchWeatherData(city).then((response) => {
-      const allData = response.data;
-      setWeather(allData.weather[0].main);
-      setIcon(allData.weather[0].icon);
-      setTemperature(allData.main.temp);
-      setFeelsLike(allData.main.feels_like);
-      return allData;
-    });
-  }
+  const fetchIcon = (icon) => {};
 
   const handleChange = (e) => {
     setCity(e.target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetchData(city);
+    fetchWeatherData(city).then((response) => {
+      const allData = response.data;
+      const weatherData = allData.weather[0];
+      const temperatureData = allData.main;
+
+      setWeather(weatherData.main);
+      setIcon(weatherData.icon);
+      setTemperature(temperatureData.temp);
+      setFeelsLike(temperatureData.feels_like);
+      console.log(weather, icon, temperature, feelsLike);
+    });
   };
 
   return (
     <StyledCard>
-      <p>WeatherCard</p>
+      {temperature && (
+        <div>
+          <div>Temperature: {temperature}</div>
+          <div>Feels like: {feelsLike}</div>
+          <div>Weather: {weather}</div>
+          <div>{icon}</div>
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
