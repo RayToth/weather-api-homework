@@ -17,6 +17,7 @@ function CurrentWeatherCard() {
   const [icon, setIcon] = useState("");
   const [temperature, setTemperature] = useState("");
   const [feelsLike, setFeelsLike] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const KELVIN = 272.15;
 
@@ -26,16 +27,19 @@ function CurrentWeatherCard() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     fetchWeatherData(city).then((response) => {
-      const allData = response.data;
-      const weatherData = allData.weather[0];
-      const temperatureData = allData.main;
+      if (response) {
+        const allData = response.data;
+        const weatherData = allData.weather[0];
+        const temperatureData = allData.main;
 
-      setWeather(weatherData.main);
-      setIcon(`http://openweathermap.org/img/wn/${weatherData.icon}@2x.png`);
-      setTemperature(Math.round(temperatureData.temp - KELVIN));
-      setFeelsLike(Math.round(temperatureData.feels_like - KELVIN));
+        setWeather(weatherData.main);
+        setIcon(`http://openweathermap.org/img/wn/${weatherData.icon}@2x.png`);
+        setTemperature(Math.round(temperatureData.temp - KELVIN));
+        setFeelsLike(Math.round(temperatureData.feels_like - KELVIN));
+      } else {
+        setErrorMessage("Please enter a valid city.");
+      }
     });
   };
 
@@ -49,6 +53,7 @@ function CurrentWeatherCard() {
           <img src={icon} alt="weatherIcon" />
         </div>
       )}
+      {errorMessage && <h1>{errorMessage}</h1>}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
