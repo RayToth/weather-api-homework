@@ -11,6 +11,16 @@ const StyledCard = styled.div`
   padding: 20px;
 `;
 
+const StyledInput = styled.input`
+  font-size: 16px;
+  font-size: max(16px, 1em);
+  font-family: inherit;
+  padding: 0.25em 0.5em;
+  background-color: #fff;
+  border: 2px solid var(--input-border);
+  border-radius: 4px;
+`;
+
 function CurrentWeatherCard() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState("");
@@ -60,9 +70,8 @@ function CurrentWeatherCard() {
       )}
       {errorMessage && <h1>{errorMessage}</h1>}
       <form onSubmit={handleSubmit}>
-        <input
+        <StyledInput
           type="text"
-          id="city-search-bar"
           name="city"
           placeholder="City"
           onChange={handleChange}
