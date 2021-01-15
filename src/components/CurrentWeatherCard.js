@@ -12,13 +12,61 @@ const StyledCard = styled.div`
 `;
 
 const StyledInput = styled.input`
-  font-size: 16px;
-  font-size: max(16px, 1em);
+  font-size: 18px;
+  font-size: max(18px, 1em);
   font-family: inherit;
   padding: 0.25em 0.5em;
   background-color: #fff;
   border: 2px solid var(--input-border);
   border-radius: 4px;
+  margin: 10px 10px 10px 10px;
+  line-height: 2;
+`;
+
+const StyledSearchButton = styled.input`
+  display: block;
+  margin: auto;
+  border: 2px solid rgb(55, 196, 187);
+  color: rgb(55, 196, 187);
+  width: 110px;
+  height: 40px;
+  outline: none;
+  cursor: pointer;
+  background: none;
+  transition: 0.5s;
+  font-size: 24px;
+  border-radius: 5px;
+  font-family: "Lato", sans-serif;
+  &:hover {
+    background-color: rgb(55, 196, 187);
+    transition: all 0.3s ease-in-out;
+    border: none;
+    color: white;
+    font-size: 26px;
+    transform: scale(1.1);
+  }
+`;
+
+const StyledFlexBox = styled.div`
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-evenly;
+`;
+
+const StyledTemperature = styled.div`
+  font-size: 36px;
+  padding: 10px;
+`;
+
+const StyledWeatherDescription = styled.div`
+  font-size: 24px;
+  padding: 10px 0px 0px 0px;
+`;
+
+const StyledImage = styled.img`
+  width: 150px;
+  height: 150px;
+  margin: auto;
 `;
 
 function CurrentWeatherCard() {
@@ -61,12 +109,12 @@ function CurrentWeatherCard() {
   return (
     <StyledCard>
       {temperature && (
-        <div>
-          <div>Temperature: {temperature} ℃</div>
-          <div>Feels like: {feelsLike} ℃</div>
-          <div>Weather: {weather}</div>
-          <img src={icon} alt="weatherIcon" />
-        </div>
+        <StyledFlexBox>
+          <StyledTemperature>Temperature: {temperature} ℃</StyledTemperature>
+          <StyledTemperature>Feels like: {feelsLike} ℃</StyledTemperature>
+          <StyledWeatherDescription>{weather}</StyledWeatherDescription>
+          <StyledImage src={icon} alt="weatherIcon" />
+        </StyledFlexBox>
       )}
       {errorMessage && <h1>{errorMessage}</h1>}
       <form onSubmit={handleSubmit}>
@@ -76,7 +124,7 @@ function CurrentWeatherCard() {
           placeholder="City"
           onChange={handleChange}
         />
-        <input type="submit" value="Search" />
+        <StyledSearchButton type="submit" value="Search" />
       </form>
     </StyledCard>
   );
