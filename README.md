@@ -1,3 +1,3 @@
 # weather-api-homework
  
-Estimated work time on the project: 26 hours
+Work time on the project: 26 hours
